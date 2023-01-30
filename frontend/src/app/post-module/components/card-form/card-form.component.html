@@ -1,0 +1,35 @@
+<div class="cardformcontainer" [ngStyle]="{ height: height }">
+  <div class="formhelper"></div>
+  <h2 class="cardformtitle">Add New Card</h2>
+  <form
+    [formGroup]="addCardForm"
+    (ngSubmit)="formSubmit()"
+    appClickoutside
+    (clickOutside)="onClickOutside()"
+  >
+    <div class="cardforminputs">
+      <input
+        type="text"
+        class="cardforminput"
+        required
+        formControlName="title"
+        #userInputTitle
+        (click)="handleClick()"
+      />
+      <textarea
+        type="text"
+        class="cardformteatarea"
+        required
+        #userInputDescription
+        formControlName="description"
+      ></textarea>
+    </div>
+    <button
+      type="submit"
+      class="cardformbutton"
+      [disabled]="!addCardForm.valid"
+    >
+      Submit!!
+    </button>
+  </form>
+</div>
