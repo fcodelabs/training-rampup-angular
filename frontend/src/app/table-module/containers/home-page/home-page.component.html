@@ -1,13 +1,17 @@
-<kendo-grid [data]="view" [pageSize]="10">
+<kendo-grid [data]="personData$ | async" [pageSize]="10">
   <ng-template kendoGridToolbarTemplate>
     <button kendoGridAddCommand>Add new</button>
   </ng-template>
-  <kendo-grid-column field="PersonID" title="Person ID"  [width]="150"></kendo-grid-column>
+  <kendo-grid-column
+    field="PersonID"
+    title="Person ID"
+    [width]="150"
+  ></kendo-grid-column>
   <kendo-grid-column
     field="PersonName"
     editor="text"
     title="Person Name"
- [width]="150"
+    [width]="150"
   ></kendo-grid-column>
   <kendo-grid-column
     field="PersonGender"

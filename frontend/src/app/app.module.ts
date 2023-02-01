@@ -17,10 +17,12 @@ import { LabelModule } from "@progress/kendo-angular-label";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DialogsModule } from "@progress/kendo-angular-dialog";
 import { ClickoutsideDirective } from "./utils/derectives/clickoutside.directive";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,

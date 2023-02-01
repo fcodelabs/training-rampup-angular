@@ -1,39 +1,41 @@
-import { Injectable } from '@angular/core';
-import { PostsService } from '../../post-module/services/posts-service';
-import { createEffect, ofType, Actions } from '@ngrx/effects';
-import { map, mergeMap, catchError, of, switchMap } from 'rxjs';
-import * as PostsActions from '../actions/postAction';
+import { TableService } from "./../../table-module/services/table.service";
+import { Injectable } from "@angular/core";
+
+import { createEffect, ofType, Actions } from "@ngrx/effects";
+import { map, mergeMap, catchError, of, switchMap } from "rxjs";
+import * as PersonActions from "../actions/personAction";
 
 @Injectable()
-export class PostsEffects {
-  getPost$ = createEffect(() =>
+export class PersonEffects {
+constructor(private actions$: Actions, private personService: TableService) {}
+
+  getPersonData$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(PostsActions.getPost),
+      ofType(PersonActions.getPersonstart),
       switchMap(() => {
-        return this.postsService.getCards().pipe(
-          map((posts) => PostsActions.getPostSuccess({ posts })),
+        return this.personService.fetchPersondata().pipe(
+          map((personData) => PersonActions.getPersonSuccess({ personData })),
           catchError((error) =>
-            of(PostsActions.getPostFailure({ error: error.message }))
+            of(PersonActions.getPersonFailure({ error: error.message }))
           )
         );
       })
     )
   );
 
-addPost$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(PostsActions.addPostStart),
-      mergeMap((newcard) => {
-        return this.postsService.addCards(newcard.post).pipe(
-          map((post) => PostsActions.addPostSuccess({ post })),
-          catchError((error) =>
-            of(PostsActions.getPostFailure({ error: error.message }))
-          )
-        );
-      })
-    )
-  );
+  // addPost$ = createEffect(() =>
+  //     this.actions$.pipe(
+  //       ofType(PostsActions.addPostStart),
+  //       mergeMap((newcard) => {
+  //         return this.postsService.addCards(newcard.post).pipe(
+  //           map((post) => PostsActions.addPostSuccess({ post })),
+  //           catchError((error) =>
+  //             of(PostsActions.getPostFailure({ error: error.message }))
+  //           )
+  //         );
+  //       })
+  //     )
+  //   );
 
-
-  constructor(private actions$: Actions, private postsService: PostsService) {}
+  
 }
