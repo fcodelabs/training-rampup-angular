@@ -1,0 +1,44 @@
+<kendo-grid [data]="personData$ | async" [pageSize]="10">
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand>Add new</button>
+  </ng-template>
+  <kendo-grid-column
+    field="PersonID"
+    title="Person ID"
+    [width]="150"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="PersonName"
+    editor="text"
+    title="Person Name"
+    [width]="150"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="PersonGender"
+    title="Person Gender"
+    [width]="150"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="PersonAddress"
+    title="Person Address"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="PersonMobileNo"
+    title="Person Mobile No"
+    [width]="200"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="DateOfBirt"
+    title="Date Of Birth"
+    [width]="200"
+  ></kendo-grid-column>
+  <kendo-grid-command-column title="command" [width]="220">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand [primary]="true">Edit</button>
+      <button kendoGridRemoveCommand>Remove</button>
+      <button kendoGridCancelCommand>
+        {{ isNew ? "Discard changes" : "Cancel" }}
+      </button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>
