@@ -1,6 +1,5 @@
 import { TableService } from "./../../table-module/services/table.service";
 import { Injectable } from "@angular/core";
-
 import { createEffect, ofType, Actions } from "@ngrx/effects";
 import { map, mergeMap, catchError, of, switchMap } from "rxjs";
 import * as PersonActions from "../actions/personAction";
