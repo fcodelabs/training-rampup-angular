@@ -1,0 +1,10 @@
+{
+  "prettier.endOfLine": "crlf",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"],
+  "editor.formatOnSave": true,
+  "files.eol": "\r\n",
+  "editor.tabSize": 2
+}
