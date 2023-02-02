@@ -1,0 +1,5 @@
+{
+  "plugins": ["@angular-eslint"],
+  "extends": ["plugin:@angular-eslint/recommended"]
+
+}
