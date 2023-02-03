@@ -114,15 +114,15 @@ export class HomePageComponent {
     }
     //this.editService.save(personData, isNew);
     if (isNew) {//todo implement the backend api
-     // this.store.dispatch(personActions.addPersonstart({ personData }));
+      this.store.dispatch(personActions.addPersonstart({ personData }));
     } else {
-     // this.store.dispatch(personActions.updatePersonstart({ personData }));
+      this.store.dispatch(personActions.updatePersonstart({ personData }));
     }
     sender.closeRow(rowIndex);
   }
   public removeHandler(args: RemoveEvent): void {
     this.store.dispatch(//todo implement the backend api
-     // personActions.deletePersonstart({ PersonID: args.dataItem.PersonID })
+      personActions.deletePersonstart({ PersonID: args.dataItem.PersonID })
     );
   }
 
