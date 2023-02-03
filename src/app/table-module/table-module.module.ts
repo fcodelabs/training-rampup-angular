@@ -3,15 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient, HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { GridModule } from '@progress/kendo-angular-grid';
-
 import { AppComponent } from './app.component';
-import { EditService } from './edit.service';
 
 
-
-const config: SocketIoConfig = { url: "http://localhost:5000", options: {} };
+const config: SocketIoConfig = { url: `${environment.socketApiUrl}`, options: {} };
 
 @NgModule({
   declarations: [
