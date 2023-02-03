@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
 import {
 	AddEvent,
 	CancelEvent,
@@ -8,7 +9,17 @@ import {
 	RemoveEvent,
 	SaveEvent,
 } from '@progress/kendo-angular-grid'
+import { Observable } from 'rxjs'
 import { Gender, Student } from 'src/app/models/student.models'
+import { DataGridServices } from 'src/app/services/data-grid.services'
+import {
+	addStudent,
+	deleteStudent,
+	getStudents,
+	updateStudent,
+} from 'src/app/store/actions/data-grid.actions'
+import { selectStudents } from 'src/app/store/selectors/data-grid.selectors'
+import { DataGridState } from 'src/app/store/state/data-grid.state'
 
 @Component({
 	selector: 'app-data-grid',
@@ -16,29 +27,24 @@ import { Gender, Student } from 'src/app/models/student.models'
 	styleUrls: ['./data-grid.component.css'],
 })
 export class DataGridComponent {
-	public gridData: Student[] = [
-		{
-			id: 1,
-			name: 'Chai',
-			gender: Gender.FEMALE,
-			address: 'Galle',
-			mobileNo: '0771231234',
-			dateOfBirth: new Date('2000-03-26'),
-			age: 22,
-		},
-		{
-			id: 2,
-			name: 'Zack',
-			gender: Gender.MALE,
-			address: 'Galle',
-			mobileNo: '0771231234',
-			dateOfBirth: new Date('2000-03-26'),
-			age: 22,
-		},
-	]
+	public gridData: Observable<Student[]> = this.store.select(selectStudents)
+
 	public genderCategories: Gender[] = [Gender.MALE, Gender.FEMALE]
 	public formGroup: FormGroup | undefined
 	private editedRowIndex: number | undefined
+
+	constructor(
+    private store: Store<DataGridState>,
+    private dataGridServices: DataGridServices
+	) {}
+
+	ngOnInit(): void {
+		this.store.dispatch(getStudents())
+	}
+	public disabledDates = (date: Date): boolean => {
+		const today = new Date()
+		return today.getTime() - date.getTime() < 0
+	}
 
 	public addHandler({ sender }: AddEvent): void {
 		this.closeEditor(sender)
@@ -50,24 +56,18 @@ export class DataGridComponent {
 			address: '',
 			mobileNo: '',
 			dateOfBirth: '',
-			gender: 1,
+			gender: '',
 		})
 
 		sender.addRow(this.formGroup)
 	}
 
 	public saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent): void {
-		const student = formGroup.value
+		const student: Student = formGroup.value
 		if (isNew) {
-			this.gridData.unshift(student)
+			this.store.dispatch(addStudent({ student }))
 		} else {
-			const temp = this.gridData.find((item) => {
-				return item.id === student.id
-			})
-			if (temp) {
-				const index = this.gridData.indexOf(temp)
-				this.gridData[index] = student
-			}
+			this.store.dispatch(updateStudent({ student }))
 		}
 		sender.closeRow(rowIndex)
 	}
@@ -80,8 +80,8 @@ export class DataGridComponent {
 	}
 
 	public removeHandler({ dataItem }: RemoveEvent): void {
-		const index = this.gridData.indexOf(dataItem)
-		this.gridData.splice(index, 1)
+		const id: string = dataItem.id
+		this.store.dispatch(deleteStudent({ id }))
 	}
 
 	public cancelHandler({ sender, rowIndex }: CancelEvent): void {
@@ -109,10 +109,31 @@ export class DataGridComponent {
 const createFormGroup = (dataItem: any) =>
 	new FormGroup({
 		id: new FormControl(dataItem.id),
-		name: new FormControl(dataItem.name, Validators.required),
+		name: new FormControl(
+			dataItem.name,
+			Validators.compose([
+				Validators.required,
+				Validators.pattern('^([A-z\\s.]{3,80})$'),
+			])
+		),
 		gender: new FormControl(dataItem.gender, Validators.required),
-		address: new FormControl(dataItem.address, Validators.required),
-		age: new FormControl(dataItem.age),
+		address: new FormControl(
+			dataItem.address,
+			Validators.compose([
+				Validators.required,
+				Validators.pattern('^([A-z0-9/,\\s]{3,})$'),
+			])
+		),
+		age: new FormControl(
+			dataItem.age,
+			Validators.compose([Validators.required, Validators.min(18)])
+		),
 		dateOfBirth: new FormControl(dataItem.dateOfBirth, Validators.required),
-		mobileNo: new FormControl(dataItem.mobileNo, Validators.required),
+		mobileNo: new FormControl(
+			dataItem.mobileNo,
+			Validators.compose([
+				Validators.required,
+				Validators.pattern('^([0][0-9]{9}|[0][0-9]{2}[-\\s][0-9]{7})$'),
+			])
+		),
 	})
