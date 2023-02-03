@@ -25,13 +25,7 @@ const config: SocketIoConfig = { url: "http://localhost:5000", options: {} };
         ReactiveFormsModule,
         GridModule
     ],
-    providers: [
-        {
-            deps: [HttpClient],
-            provide: EditService,
-            useFactory: (jsonp: HttpClient) => () => new EditService(jsonp)
-        }
-    ],
+    providers: [HttpClient],
     bootstrap: [AppComponent]
 })
 export class TableModule {}
