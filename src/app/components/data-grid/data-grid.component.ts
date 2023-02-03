@@ -46,11 +46,11 @@ export class DataGridComponent {
 		this.formGroup = createFormGroup({
 			id: '',
 			name: '',
-			age: '',
+			age: 0,
 			address: '',
 			mobileNo: '',
-			dateOfBirth: '',
-			gender: 1,
+			dateOfBirth:'',
+			gender: '',
 		})
 
 		sender.addRow(this.formGroup)
@@ -106,7 +106,7 @@ export class DataGridComponent {
 	}
 }
 
-const createFormGroup = (dataItem: any) =>
+const createFormGroup = (dataItem: Student) =>
 	new FormGroup({
 		id: new FormControl(dataItem.id),
 		name: new FormControl(dataItem.name, Validators.required),

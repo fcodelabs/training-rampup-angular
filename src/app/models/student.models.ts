@@ -1,10 +1,10 @@
 export interface Student {
-    id: number
+    id?: number
     name: string
-    gender:Gender
+    gender:string
     address: string
     mobileNo:string
-    dateOfBirth:Date
+    dateOfBirth:string|Date
     age:number
 }
 
