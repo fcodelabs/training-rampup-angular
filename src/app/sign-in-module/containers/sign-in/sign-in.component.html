@@ -1,0 +1,75 @@
+<div class="sign-in-container">
+  <kendo-card width="560px">
+    <kendo-card-header class="k-hstack">
+      <kendo-avatar
+        width="40px"
+        height="40px"
+        [imageSrc]="imageSrc"
+        shape="circle"
+      ></kendo-avatar>
+      <div>
+        <h1 kendoCardTitle>Dear Diary</h1>
+        <p kendoCardSubtitle>nuwan perera</p>
+      </div>
+    </kendo-card-header>
+
+    <kendo-card-body>
+      <h1 align="center" class="login-title">Sign In</h1>
+      <div class="example-wrap">
+        <form class="k-form" [formGroup]="registerForm">
+          <kendo-formfield>
+            <label class="login-label" kendoLabel>Username</label>
+            <input
+              kendoTextBox
+              size="large"
+              required
+              formControlName="username"
+              kendoTextBox
+              #username
+              required
+              name="first"
+              class="login-input"
+            />
+
+            <kendo-formerror>Error: Username is required</kendo-formerror>
+          </kendo-formfield>
+          <button
+            (click)="handleClick()"
+            kendoButton
+            align="end"
+            class="login-button-rondom"
+            themeColor="info"
+          >
+            random
+          </button>
+        </form>
+      </div>
+    </kendo-card-body>
+    <kendo-card-actions
+      class="login-button-action"
+      orientation="horizontal"
+      layout="stretched"
+    >
+      <button
+        (click)="submitForm()"
+        [disabled]="!registerForm.valid"
+        kendoButton
+        rounded="large"
+        size="medium"
+        class="login-button-action"
+        themeColor="info"
+      >
+        continue
+      </button>
+      <button
+        kendoButton
+        class="login-button-action"
+        rounded="large"
+        size="medium"
+        themeColor="info"
+      >
+        cancel
+      </button>
+    </kendo-card-actions>
+  </kendo-card>
+</div>

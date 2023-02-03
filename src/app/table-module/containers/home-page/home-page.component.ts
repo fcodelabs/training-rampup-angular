@@ -1,3 +1,8 @@
+import {
+  errSelector,
+  isLoadingSelector,
+  personDataSelector,
+} from "./../../../store/selectors/personSelector";
 import { Observable } from "rxjs";
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -13,6 +18,12 @@ import {
 import { State, process } from "@progress/kendo-data-query";
 import { first, map, toArray } from "rxjs/operators";
 import {  PersonInterface } from "src/app/models/person-interface";
+import { AppStateInterface } from "src/app/types/appState.interface";
+import { select, Store } from "@ngrx/store";
+import * as personActions from "../../../store/actions/personAction";
+import { durationInYears } from "@progress/kendo-date-math";
+import { Socket } from "ngx-socket-io";
+import { NotificationService } from "@progress/kendo-angular-notification";
 
 @Component({
   selector: "app-home-page",
@@ -35,8 +46,22 @@ export class HomePageComponent {
 
   constructor(
     private store: Store<AppStateInterface>,
-   
-  ) {}
+    private socket: Socket,
+    private notificationService: NotificationService
+  ) {
+    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
+    this.error$ = this.store.pipe(select(errSelector));
+
+    this.socket.on("connect", () => {
+      console.log("connected");
+    });
+    this.socket.on("disconnect", () => {
+      console.log("disconnected");
+    });
+    this.socket.on("notification", (data: any) => {
+      this.notification(data);
+    });
+  }
 
   ngOnInit(): void {
     this.store.dispatch(personActions.getPersonstart());
@@ -46,7 +71,16 @@ export class HomePageComponent {
     );
   }
 
-  /
+  public notification(data: string): void {
+    this.notificationService.show({
+      content: `${data}`,
+      cssClass: "button-notification",
+      animation: { type: "slide", duration: 200 },
+      position: { horizontal: "right", vertical: "top" },
+      type: { style: "success", icon: true },
+      hideAfter: 2000,
+    });
+  }
 
   public addHandler(args: AddEvent): void {
     // define all editable fields validators and default values
@@ -113,7 +147,7 @@ export class HomePageComponent {
       personData.PersonID = dataItem.PersonID;
     }
     //this.editService.save(personData, isNew);
-    if (isNew) {//todo implement the backend api
+    if (isNew) {
       this.store.dispatch(personActions.addPersonstart({ personData }));
     } else {
       this.store.dispatch(personActions.updatePersonstart({ personData }));
@@ -121,7 +155,9 @@ export class HomePageComponent {
     sender.closeRow(rowIndex);
   }
   public removeHandler(args: RemoveEvent): void {
-    this.store.dispatch(//todo implement the backend api
+    // remove the current dataItem from the current data source, and close the row
+    //this.editService.remove(args.dataItem.PersonID);
+    this.store.dispatch(
       personActions.deletePersonstart({ PersonID: args.dataItem.PersonID })
     );
   }
@@ -134,10 +170,20 @@ export class HomePageComponent {
   public onStateChange(state: State): void {
     this.gridState = state;
     this.store.dispatch(personActions.getPersonstart());
+    // this.editService.read();
   }
   protected ageCalculator(birthday: string): number {
     const start = new Date(birthday);
     const end = new Date();
     return durationInYears(start, end);
   }
+  protected ageValidator = (control: FormControl) => {
+    const birthdate = new Date(control.value);
+    const today = new Date();
+    const age = today.getFullYear() - birthdate.getFullYear();
+    if (age < 18) {
+      return { age: "Age must be more than 18" };
+    }
+    return null;
+  };
 }
