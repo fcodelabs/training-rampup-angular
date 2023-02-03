@@ -1,8 +1,3 @@
-import {
-  errSelector,
-  isLoadingSelector,
-  personDataSelector,
-} from "./../../../store/selectors/personSelector";
 import { Observable } from "rxjs";
 import { Component, OnInit, Inject } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
@@ -18,12 +13,6 @@ import {
 import { State, process } from "@progress/kendo-data-query";
 import { first, map, toArray } from "rxjs/operators";
 import {  PersonInterface } from "src/app/models/person-interface";
-import { AppStateInterface } from "src/app/types/appState.interface";
-import { select, Store } from "@ngrx/store";
-import * as personActions from "../../../store/actions/personAction";
-import { durationInYears } from "@progress/kendo-date-math";
-import { Socket } from "ngx-socket-io";
-import { NotificationService } from "@progress/kendo-angular-notification";
 
 @Component({
   selector: "app-home-page",
