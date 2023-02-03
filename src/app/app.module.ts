@@ -10,8 +10,6 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns'
 import { ReactiveFormsModule } from '@angular/forms'
 import { DateInputsModule } from '@progress/kendo-angular-dateinputs'
 
-
-
 @NgModule({
 	declarations: [AppComponent, DataGridComponent, HomePageComponent],
 	imports: [
