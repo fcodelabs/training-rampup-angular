@@ -44,7 +44,6 @@ export class DataGridComponent {
 		this.closeEditor(sender)
 
 		this.formGroup = createFormGroup({
-			id: '',
 			name: '',
 			age: 0,
 			address: '',
