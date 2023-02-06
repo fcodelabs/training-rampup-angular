@@ -1,6 +1,6 @@
 <div>
   <kendo-grid
-    [data]="gridData"
+    [data]="gridData | async"
     (add)="addHandler($event)"
     (edit)="editHandler($event)"
     (cancel)="cancelHandler($event)"
@@ -10,7 +10,11 @@
     <ng-template kendoGridToolbarTemplate>
       <button kendoGridAddCommand>Add new</button>
     </ng-template>
-    <kendo-grid-column field="id" title="ID"></kendo-grid-column>
+    <kendo-grid-column
+      field="id"
+      title="ID"
+      [editable]="false"
+    ></kendo-grid-column>
     <kendo-grid-column field="name" title="Name"></kendo-grid-column>
     <kendo-grid-column field="gender" title="Gender">
       <ng-template
@@ -33,16 +37,14 @@
     <kendo-grid-column field="dateOfBirth" title="DOB" format="{0:D}">
       <ng-template
         kendoGridEditTemplate
-        let-dataItem="dataItem"
         let-formGroup="formGroup"
       >
         <kendo-datepicker
-          textField="dateOfBirth"
-          valueField="dateOfBirth"
           [formControl]="formGroup.get('dateOfBirth')"
           (valueChange)="calculateAge($event)"
-        >
-        </kendo-datepicker>
+          [readOnlyInput]="true"
+          [disabledDates]="disabledDates"
+        ></kendo-datepicker>
       </ng-template>
     </kendo-grid-column>
     <kendo-grid-column
