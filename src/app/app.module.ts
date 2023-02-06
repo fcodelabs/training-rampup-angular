@@ -11,7 +11,6 @@ import { environment } from "../environments/environment";
 import { LayoutModule } from "@progress/kendo-angular-layout";
 import { IconsModule } from "@progress/kendo-angular-icons";
 import { ButtonsModule } from "@progress/kendo-angular-buttons";
-
 import { LabelModule } from "@progress/kendo-angular-label";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { DialogsModule } from "@progress/kendo-angular-dialog";
@@ -30,8 +29,7 @@ import { DateInputsModule } from "@progress/kendo-angular-dateinputs";
     ReactiveFormsModule,
     IconsModule,
     ButtonsModule,
-    DialogsModule,
-    
+    DialogsModule, 
     LabelModule,
     LayoutModule,
     AppRoutingModule,
