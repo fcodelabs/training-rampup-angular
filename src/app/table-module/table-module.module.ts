@@ -35,7 +35,6 @@ const config: SocketIoConfig = { url: `${environment.socketApiUrl}`, options: {}
     BrowserAnimationsModule,
     NotificationModule,
   ],
-
   providers: [
   ],
 })

@@ -4,7 +4,7 @@ $font-family_1: "Raleway", sans-serif;
 $font-family_2: "Raleway Thin", sans-serif;
 $font-family_3: "Raleway SemiBold", sans-serif;
 
-.example-wrap {
+.wrap {
   display: flex;
   justify-content: center;
 }
@@ -43,9 +43,7 @@ $font-family_3: "Raleway SemiBold", sans-serif;
 .login-button-action {
   margin: 5px 40px;
   padding: 10px;
-
 }
-
 .login-err {
   color: red;
 }
@@ -96,7 +94,6 @@ $font-family_3: "Raleway SemiBold", sans-serif;
   padding-top: 5px;
   text-align: center;
 }
-
 @media (min-width: 600px) {
   #logincard-title {
     padding-top: 15px;
@@ -106,7 +103,6 @@ $font-family_3: "Raleway SemiBold", sans-serif;
   font-size: 40px;
   font-weight: 500;
 }
-
 #submit-btn {
   background: -webkit-linear-gradient(right, #7be9f7, #2d67bd);
   border: none;
@@ -124,7 +120,6 @@ $font-family_3: "Raleway SemiBold", sans-serif;
     box-shadow: 0px 1px 18px #249bc6;
   }
 }
-
 .form {
   align-items: left;
   display: flex;
@@ -150,7 +145,6 @@ $font-family_3: "Raleway SemiBold", sans-serif;
   font-size: large;
   border-radius: 21px;
 }
-
 .grid-container {
   display: grid;
   gap: 2rem;
@@ -166,11 +160,9 @@ $font-family_3: "Raleway SemiBold", sans-serif;
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 .grid-item {
   gap: 5rem;
 }
-
 #random-button {
   background: -webkit-linear-gradient(right, #7be9f7, #2d67bd);
   border: none;

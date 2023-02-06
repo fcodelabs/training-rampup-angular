@@ -156,7 +156,6 @@ export class HomePageComponent {
   }
   public removeHandler(args: RemoveEvent): void {
     // remove the current dataItem from the current data source, and close the row
-    //this.editService.remove(args.dataItem.PersonID);
     this.store.dispatch(
       personActions.deletePersonstart({ PersonID: args.dataItem.PersonID })
     );
@@ -170,7 +169,6 @@ export class HomePageComponent {
   public onStateChange(state: State): void {
     this.gridState = state;
     this.store.dispatch(personActions.getPersonstart());
-    // this.editService.read();
   }
   protected ageCalculator(birthday: string): number {
     const start = new Date(birthday);
