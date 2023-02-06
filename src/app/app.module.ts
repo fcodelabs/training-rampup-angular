@@ -16,8 +16,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { studentReducer } from './store/reducers/data-grid.reducers'
 import { DataGridEffects } from './store/effects/data-grid.effects'
 
-
-
 @NgModule({
 	declarations: [AppComponent, DataGridComponent, HomePageComponent],
 	imports: [

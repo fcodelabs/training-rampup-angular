@@ -50,12 +50,11 @@ export class DataGridComponent {
 		this.closeEditor(sender)
 
 		this.formGroup = createFormGroup({
-			id: '',
 			name: '',
-			age: '',
+			age: 0,
 			address: '',
 			mobileNo: '',
-			dateOfBirth: '',
+			dateOfBirth:'',
 			gender: '',
 		})
 
@@ -106,7 +105,7 @@ export class DataGridComponent {
 	}
 }
 
-const createFormGroup = (dataItem: any) =>
+const createFormGroup = (dataItem: Student) =>
 	new FormGroup({
 		id: new FormControl(dataItem.id),
 		name: new FormControl(
