@@ -19,7 +19,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { DropDownListModule } from "@progress/kendo-angular-dropdowns";
 import { DateInputsModule } from "@progress/kendo-angular-dateinputs";
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
