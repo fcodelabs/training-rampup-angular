@@ -17,7 +17,7 @@ export const sampleData = [
     PersonMobileNo: "034545445645",
     DateOfBirth: new Date(1996, 8, 20),
     PersonAge: 3,
-inEdit:false,
+    inEdit:false,
   },
   {
     PersonID: 3,
