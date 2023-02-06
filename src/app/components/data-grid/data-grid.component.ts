@@ -11,7 +11,6 @@ import {
 } from '@progress/kendo-angular-grid'
 import { Observable } from 'rxjs'
 import { Gender, Student } from 'src/app/models/student.models'
-import { DataGridServices } from 'src/app/services/data-grid.services'
 import {
 	addStudent,
 	deleteStudent,
@@ -35,7 +34,6 @@ export class DataGridComponent {
 
 	constructor(
     private store: Store<DataGridState>,
-    private dataGridServices: DataGridServices
 	) {}
 
 	ngOnInit(): void {
@@ -73,7 +71,11 @@ export class DataGridComponent {
 
 	public editHandler({ sender, rowIndex, dataItem }: EditEvent): void {
 		this.closeEditor(sender)
-		this.formGroup = createFormGroup(dataItem)
+		const student:Student={
+			...dataItem,
+			dateOfBirth:new Date(dataItem.dateOfBirth)
+		}
+		this.formGroup = createFormGroup(student)
 		this.editedRowIndex = rowIndex
 		sender.editRow(rowIndex, this.formGroup)
 	}
