@@ -1,5 +1,12 @@
 <div>
-  <kendo-grid [data]="gridData" (add)="addHandler($event)" (save)="saveHandler($event)">
+  <kendo-grid
+    [data]="gridData"
+    (add)="addHandler($event)"
+    (edit)="editHandler($event)"
+    (cancel)="cancelHandler($event)"
+    (save)="saveHandler($event)"
+    (remove)="removeHandler($event)"
+  >
     <ng-template kendoGridToolbarTemplate>
       <button kendoGridAddCommand>Add new</button>
     </ng-template>
@@ -38,12 +45,19 @@
         </kendo-datepicker>
       </ng-template>
     </kendo-grid-column>
-    <kendo-grid-column field="age" title="Age" [editable]="false"></kendo-grid-column>
+    <kendo-grid-column
+      field="age"
+      title="Age"
+      [editable]="false"
+    ></kendo-grid-column>
     <kendo-grid-command-column title="command" [width]="220">
       <ng-template kendoGridCellTemplate let-isNew="isNew">
         <button kendoGridEditCommand [primary]="true">Edit</button>
         <button kendoGridRemoveCommand>Remove</button>
-        <button kendoGridSaveCommand [disabled]="formGroup?!formGroup.valid:true">
+        <button
+          kendoGridSaveCommand
+          [disabled]="formGroup ? !formGroup.valid : true"
+        >
           {{ isNew ? 'Add' : 'Update' }}
         </button>
         <button kendoGridCancelCommand>

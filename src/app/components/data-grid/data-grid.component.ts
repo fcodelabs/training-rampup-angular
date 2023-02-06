@@ -1,6 +1,13 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { AddEvent, GridComponent, SaveEvent } from '@progress/kendo-angular-grid'
+import {
+	AddEvent,
+	CancelEvent,
+	EditEvent,
+	GridComponent,
+	RemoveEvent,
+	SaveEvent,
+} from '@progress/kendo-angular-grid'
 import { Gender, Student } from 'src/app/models/student.models'
 
 @Component({
@@ -48,10 +55,36 @@ export class DataGridComponent {
 		sender.addRow(this.formGroup)
 	}
 
-	public saveHandler({ sender, rowIndex, formGroup }: SaveEvent): void {
+	public saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent): void {
 		const student = formGroup.value
-		this.gridData.unshift(student)
+		if (isNew) {
+			this.gridData.unshift(student)
+		} else {
+			const temp = this.gridData.find((item) => {
+				return item.id === student.id
+			})
+			if (temp) {
+				const index = this.gridData.indexOf(temp)
+				this.gridData[index] = student
+			}
+		}
 		sender.closeRow(rowIndex)
+	}
+
+	public editHandler({ sender, rowIndex, dataItem }: EditEvent): void {
+		this.closeEditor(sender)
+		this.formGroup = createFormGroup(dataItem)
+		this.editedRowIndex = rowIndex
+		sender.editRow(rowIndex, this.formGroup)
+	}
+
+	public removeHandler({ dataItem }: RemoveEvent): void {
+		const index = this.gridData.indexOf(dataItem)
+		this.gridData.splice(index, 1)
+	}
+
+	public cancelHandler({ sender, rowIndex }: CancelEvent): void {
+		this.closeEditor(sender, rowIndex)
 	}
 
 	private closeEditor(
@@ -74,10 +107,11 @@ export class DataGridComponent {
 
 const createFormGroup = (dataItem: Student) =>
 	new FormGroup({
+		id: new FormControl(dataItem.id),
 		name: new FormControl(dataItem.name, Validators.required),
-		gender: new FormControl(dataItem.gender,Validators.required),
-		address: new FormControl(dataItem.address,Validators.required),
+		gender: new FormControl(dataItem.gender, Validators.required),
+		address: new FormControl(dataItem.address, Validators.required),
 		age: new FormControl(dataItem.age),
-		dateOfBirth: new FormControl(dataItem.dateOfBirth,Validators.required),
+		dateOfBirth: new FormControl(dataItem.dateOfBirth, Validators.required),
 		mobileNo: new FormControl(dataItem.mobileNo, Validators.required),
 	})
