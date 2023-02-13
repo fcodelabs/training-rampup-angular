@@ -15,6 +15,15 @@ import { EffectsModule } from '@ngrx/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { studentReducer } from './store/reducers/data-grid.reducers'
 import { DataGridEffects } from './store/effects/data-grid.effects'
+import { environment } from '../environments/environments'
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io'
+
+const socketConfig: SocketIoConfig = {
+	url: environment.SOCKET_URL, 
+	options: {
+		transports: ['websocket'],
+	},
+}
 
 @NgModule({
 	declarations: [AppComponent, DataGridComponent, HomePageComponent],
@@ -33,6 +42,7 @@ import { DataGridEffects } from './store/effects/data-grid.effects'
 		}),
 		EffectsModule.forRoot([DataGridEffects]),
 		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+		SocketIoModule.forRoot(socketConfig), 
 	],
 	providers: [],
 	bootstrap: [AppComponent],
