@@ -5,6 +5,8 @@
      (add)="addHandler($event)"
      (save)="saveHandler($event)"
      (cancel)="cancelHandler($event)"
+     (remove)="removeHandler($event)"
+     (edit)="editHandler($event)"
     >
       <ng-template kendoGridToolbarTemplate>
         <button kendoGridAddCommand type="button">Add new</button>
@@ -44,13 +46,14 @@
           let-formGroup="formGroup"
         >
           <kendo-datepicker
-          onkeydown="return false;"
+            format="MM-dd-yyyy"
+            onkeydown="return false;"
             textField="birth"
-            [(value)]="value"
             valueField="birth"
             [formControl]="formGroup.get('birth')"
             (valueChange)="getAge($event)"
           >
+          
           </kendo-datepicker>
         </ng-template>
 

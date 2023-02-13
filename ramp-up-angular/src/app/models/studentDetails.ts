@@ -4,6 +4,6 @@ export interface studentDetails {
   gender?: string;
   address?: string;
   mobileNo?: string;
-  birth?: Date;
+  birth?: Date | string;
   age?: number;
 }
