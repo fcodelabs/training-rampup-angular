@@ -56,6 +56,7 @@ export class DataGridComponent {
   public addHandler(args: AddEvent): void  {
     this.closeEditor(args.sender);
     this.formGroup = this.createFormGroup({ 
+      id:this.studentData.length+1,
       name:'',
       gender:'',
       address:'',
@@ -83,7 +84,10 @@ export class DataGridComponent {
       return Math.abs(agedt.getUTCFullYear() - 1970);
     }
   }
-
+  public disabledDates = (date: Date): boolean => {
+    const today=new Date();
+    return date > today ;
+  };
 
   //cancel changes
   public cancelHandler(args: CancelEvent): void {
@@ -131,6 +135,7 @@ export class DataGridComponent {
 
   createFormGroup = (dataItem:studentDetails) =>
     new FormGroup({
+      id:new FormControl(dataItem.id,Validators.required),
       name:new FormControl(dataItem.name,[
         Validators.required,
         Validators.pattern('^[A-z ]{5,20}$'), 
