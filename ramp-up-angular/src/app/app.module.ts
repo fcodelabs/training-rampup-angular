@@ -9,6 +9,10 @@ import { GridModule } from '@progress/kendo-angular-grid';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { InputsModule } from '@progress/kendo-angular-inputs';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { DateInputsModule } from '@progress/kendo-angular-dateinputs';
+
+
 
 
 @NgModule({
@@ -20,6 +24,8 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
     BrowserAnimationsModule,
     InputsModule,
     FormsModule,
+    DropDownsModule,
+    DateInputsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
