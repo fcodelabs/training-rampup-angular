@@ -3,18 +3,21 @@ import {
   getAllStudentService,
   saveStudentService,
   updateStudentService,
-  deleteStudentService, 
-  findStudent, 
+  deleteStudentService,
+  findStudent,
 } from '../services/studentService';
 import { StudentModel } from '../utils/interfaces';
- 
+
 // import { io } from '../../index';
- import { io } from '../../socketServer';
+import { io } from '../../socketServer';
 import { checkValidation } from '../utils/validation';
 import { validationStatus } from '../utils/validation';
 
-//get all student 
-export const getAllStudent = async (req: Request, res: Response): Promise<any> => {
+//get all student
+export const getAllStudent = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const student = await getAllStudentService();
     res.send(student);
@@ -24,7 +27,10 @@ export const getAllStudent = async (req: Request, res: Response): Promise<any> =
 };
 
 //save Student
-export const saveStudent = async (req: Request, res: Response): Promise<any> => {
+export const saveStudent = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     if (checkValidation(req.body)) {
       const response = await saveStudentService(req.body);
@@ -43,7 +49,10 @@ export const saveStudent = async (req: Request, res: Response): Promise<any> => 
 };
 
 //update Student
-export const updateStudent = async (req: Request, res: Response): Promise<any> => {
+export const updateStudent = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const studentStatus = await findStudent(req.body.id);
     if (studentStatus) {
@@ -62,7 +71,10 @@ export const updateStudent = async (req: Request, res: Response): Promise<any> =
 };
 
 //delete Student
-export const deleteStudent = async (req: Request, res: Response): Promise<any> => {
+export const deleteStudent = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
   try {
     const studentId = parseInt(req.params.ID);
     const response = await deleteStudentService(studentId);

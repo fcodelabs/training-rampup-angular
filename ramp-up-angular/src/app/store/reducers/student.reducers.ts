@@ -11,7 +11,7 @@ export const initialState:studentData={
 export const studentReducer=createReducer(
   initialState,
   on(studentAction.getStudent,(state, action)=>({...state})),
-  on(studentAction.getStudentSuccess,(state, action)=>({...state})),
+  on(studentAction.getStudentSuccess,(state, action)=>({...state,students:action.student})),
   on(studentAction.addStudent,(state, action)=>({...state})),
   on(studentAction.updateStudent,(state, action)=>({...state})),
   on(studentAction.deleteStudent,(state, action)=>({...state})),

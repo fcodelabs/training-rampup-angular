@@ -7,13 +7,13 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 dotenv.config();
-const port = process.env.PORT;
+const port = 8000;
 
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({
   credentials: true, 
-  origin: 'http://localhost:3000' }));
+  origin: 'http://localhost:4200' }));
 app.use(express.urlencoded({ extended: true }));
 
 //routes

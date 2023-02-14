@@ -10,7 +10,7 @@ export const httpServer = createServer(app);
 app.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:4200',
   })
 );
 app.use(express.urlencoded({ extended: true }));
@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 export const io = new Server(httpServer, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:4200',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
   },
 });

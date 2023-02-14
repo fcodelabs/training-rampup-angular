@@ -1,7 +1,7 @@
 <div>
   
     <kendo-grid
-     [data]="studentData"
+     [data]="studentData | async"
      (add)="addHandler($event)"
      (save)="saveHandler($event)"
      (cancel)="cancelHandler($event)"
@@ -42,15 +42,11 @@
         <kendo-grid-column field="birth" format="{0:D}" title="Birth">
        <ng-template
           kendoGridEditTemplate
-          let-dataItem="dataItem"
           let-formGroup="formGroup"
         >
           <kendo-datepicker
-            format="MM-dd-yyyy"
             onkeydown="return false;"
             [disabledDates]="disabledDates"
-            textField="birth"
-            valueField="birth"
             [formControl]="formGroup.get('birth')"
             (valueChange)="getAge($event)"
           >
