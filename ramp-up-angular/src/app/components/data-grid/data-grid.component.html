@@ -1,0 +1,68 @@
+<div>
+  
+    <kendo-grid
+     [data]="studentData"
+    >
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoGridAddCommand type="button">Add new</button>
+      </ng-template>
+
+      <kendo-grid-column  field="id" title="ID">
+       
+      </kendo-grid-column>
+
+      <kendo-grid-column field="name" title="Name">
+        
+      </kendo-grid-column>
+
+      <kendo-grid-column field="gender" title="Gender">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <kendo-dropdownlist [data]="listItems"  [(ngModel)]="dataItem.gender"> </kendo-dropdownlist>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="address" title="Address">
+       
+      </kendo-grid-column>
+
+      <kendo-grid-column field="mobileNo" title="MobileNo">
+        
+      </kendo-grid-column>
+
+        <kendo-grid-column field="birth" title="Birth">
+        <ng-template kendoGridEditTemplate let-dataItem="dataItem">
+          <kendo-datepicker onkeydown="return false"  [(value)]="value"></kendo-datepicker>
+        </ng-template>
+      </kendo-grid-column>
+
+      <kendo-grid-column field="age" title="Age">
+       
+      </kendo-grid-column>
+
+     <kendo-grid-command-column title="command" [width]="220">
+          <ng-template kendoGridCellTemplate let-isNew="isNew">
+            
+            <button kendoGridEditCommand type="button" [primary]="true">
+              Edit
+            </button>
+           
+            <button kendoGridRemoveCommand type="button">Remove</button>
+            
+            <button
+              kendoGridSaveCommand
+              type="button"  
+              [disabled]="false "           
+            >
+              {{ isNew ? "Add" : "Update" }}
+            </button>
+            
+            <button kendoGridCancelCommand type="button">
+              {{ isNew ? "Discard changes" : "Cancel" }}
+            </button>
+          
+          </ng-template>
+        </kendo-grid-command-column>
+
+    </kendo-grid>
+  
+</div>
