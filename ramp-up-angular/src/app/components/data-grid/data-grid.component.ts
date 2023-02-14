@@ -70,18 +70,17 @@ export class DataGridComponent {
  
   public getAge (event:Date){
     let age:Date | number = event;
-    const tempAge = getAge(event);
+
+    const diffms = Date.now() - event.getTime();
+    const agedt = new Date(diffms);
+    const tempAge = Math.abs(agedt.getUTCFullYear() - 1970);
+ 
     if (tempAge > 18) {
       age = tempAge;
       this.formGroup?.controls['age'].setValue(age);
     } else {
       age = 0;
       alert('age needs to be more than 18 years....!');
-    }
-    function getAge(dob: Date) {
-      const diffms = Date.now() - dob.getTime();
-      const agedt = new Date(diffms);
-      return Math.abs(agedt.getUTCFullYear() - 1970);
     }
   }
   public disabledDates = (date: Date): boolean => {
