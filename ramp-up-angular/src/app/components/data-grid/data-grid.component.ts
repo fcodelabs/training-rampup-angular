@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Student } from 'src/app/models/studentData';
 
 import { studentDetails } from 'src/app/models/studentDetails';
@@ -56,38 +56,84 @@ export class DataGridComponent {
   //private editService: EditService;
   private editedRowIndex: number | undefined;
   private editedProduct: Student |undefined;
-  	public formGroup: FormGroup | undefined;
+  public formGroup: FormGroup | undefined;
   public listItems: Array<string> = [
     'Male',
     'Female'
   ];
   public value: Date = new Date(2000, 2, 10);
-  
-  public addHandler(args: AddEvent, formInstance: NgForm): void {
-    formInstance.reset();
-    // close the previously edited item
-    this.closeEditor(args.sender);
-    // open a new item editor
-    args.sender.addRow(new Student());
-  }
 
+  //add new student
+  public addHandler(args: AddEvent): void  {
+    this.closeEditor(args.sender);
+    this.formGroup = this.createFormGroup({
+      
+      name:'',
+      gender:'',
+      address:'',
+      mobileNo:'',
+      birth:new Date(),
+      age:0
+    });
+    args.sender.addRow(this.formGroup);
+  }
+ 
+  createFormGroup = (dataItem:studentDetails) =>
+    new FormGroup({
+      name:new FormControl(dataItem.name,[
+        Validators.required,
+        Validators.pattern('^[A-z ]{5,20}$'), 
+      ]),
+      gender:new FormControl(dataItem.gender,Validators.required),
+      address:new FormControl(dataItem.address,[
+        Validators.required,
+        Validators.pattern('^[A-z ]{5,20}$'), 
+      ]),
+      mobileNo:new FormControl(dataItem.mobileNo,[
+        Validators.required,
+        Validators.pattern('^[0-9]{8,10}$'), 
+      ]),
+      birth:new FormControl(dataItem.birth,Validators.required),
+      age:new FormControl(dataItem.age,Validators.required),  
+    });
+  public getAge (event:Date){
+    let age:Date | number = event;
+    const tempAge = getAge(event);
+    if (tempAge > 18) {
+      age = tempAge;
+      this.formGroup?.controls['age'].setValue(age);
+    } else {
+      age = 0;
+      alert('age needs to be more than 18 years....!');
+    }
+  
+    function getAge(dob: Date) {
+      const diffms = Date.now() - dob.getTime();
+      const agedt = new Date(diffms);
+      return Math.abs(agedt.getUTCFullYear() - 1970);
+    }
+  }
+  //cancel changes
   public cancelHandler(args: CancelEvent): void {
-    // call the helper method
     this.closeEditor(args.sender, args.rowIndex);
   }
+  //save student
+  public saveHandler({ sender, rowIndex, formGroup, isNew }: SaveEvent): void {
+    const student = formGroup.value;
+    // if(checkValidation(student)){
 
+    // }
+    this.studentData.unshift(student);
+    sender.closeRow(rowIndex);
+  }
 
   private closeEditor(
     grid: GridComponent,
     rowIndex = this.editedRowIndex
   ): void {
-    // close the editor
     grid.closeRow(rowIndex);
-    // revert the data item to original state
-    //this.editService.resetItem(this.editedProduct);
-    // reset the helpers
     this.editedRowIndex = undefined;
-    this.editedProduct = undefined;
+    this.formGroup = undefined;
   }
 }
 
