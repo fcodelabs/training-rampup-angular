@@ -102,8 +102,12 @@ export class DataGridComponent {
 
   //remove student 
   public removeHandler(args: RemoveEvent): void {
-    const id:number=args.dataItem.id;
-    this.store.dispatch(deleteStudent({id}));
+    const text='Are you sure you want to delete this student?\n'+'name - '+args.dataItem.name;
+    if(confirm(text)){
+      const id:number=args.dataItem.id;
+      this.store.dispatch(deleteStudent({id}));
+    }
+    
   }
 
 

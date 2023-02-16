@@ -17,9 +17,11 @@ import { studentReducer } from './store/reducers/student.reducers';
 import { studentEffects } from './store/effects/student.effects';
 import { HttpClientModule } from '@angular/common/http';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { PopupModule } from '@progress/kendo-angular-popup';
+import { PopupAnchorDirective } from './utils/directives/popup.target.directives';
 const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, DataGridComponent],
+  declarations: [AppComponent, HomePageComponent, DataGridComponent,PopupAnchorDirective],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -37,7 +39,8 @@ const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
       maxAge: 25,
       autoPause: true,
     }),
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    PopupModule
   ],
   providers: [],
   bootstrap: [AppComponent],
