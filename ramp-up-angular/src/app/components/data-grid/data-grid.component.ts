@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
-import { studentDetails } from 'src/app/models/studentDetails';
+import { studentDetails } from '../../models/studentDetails';
 import {
   CancelEvent,
   EditEvent,
@@ -12,8 +12,8 @@ import {
   AddEvent,
 } from '@progress/kendo-angular-grid';
 import { Observable } from 'rxjs';
-import { selectStudent } from 'src/app/store/selectors/student.selectors';
-import { getStudent,addStudent,updateStudent,deleteStudent } from 'src/app/store/action/student.action';
+import { selectStudent } from '../../store/selectors/student.selectors';
+import { getStudent,addStudent,updateStudent,deleteStudent } from '../../store/action/student.action';
 
 @Component({
 

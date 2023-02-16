@@ -7,7 +7,7 @@ import { getStudent,
   actionFailure,addStudent,
   updateStudent,
   deleteStudent } from '../action/student.action';
-import { StudentServices } from 'src/app/services/student.services';
+import { StudentServices } from '../../services/student.services';
 
 @Injectable()
 export class studentEffects{

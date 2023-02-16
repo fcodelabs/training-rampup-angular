@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { studentDetails } from 'src/app/models/studentDetails';
+import { studentDetails } from '../../models/studentDetails';
 
 export const getStudent=createAction('[Data-grid Page] Get Students');
 
