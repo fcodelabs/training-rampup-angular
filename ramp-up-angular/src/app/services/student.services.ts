@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable,map } from 'rxjs';
+import { Observable, } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { studentDetails } from '../models/studentDetails';
 import { STUDENT_API } from '../environments/environment';
@@ -8,7 +8,6 @@ import { Socket } from 'ngx-socket-io';
   providedIn: 'root',
 })
 export class StudentServices{
-  //students:studentDetails[]=[];
   constructor(private http:HttpClient,private socket: Socket){
     this.socket.on('notification',(...args:any) => alert(args[0]));
   }
